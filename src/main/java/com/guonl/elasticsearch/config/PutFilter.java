@@ -1,4 +1,4 @@
-package com.gxgeek.springboot.elasticsearch.config;
+package com.guonl.elasticsearch.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.HttpPutFormContentFilter;

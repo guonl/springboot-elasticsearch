@@ -1,9 +1,7 @@
-package com.gxgeek.springboot.elasticsearch;
+package com.guonl.elasticsearch.controller;
 
-import com.gxgeek.springboot.elasticsearch.form.BookBean;
+import com.guonl.elasticsearch.form.BookBean;
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -19,30 +17,24 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Created by guonl
+ * Date 2019/1/28 10:47 AM
+ * Description:
+ */
 @Slf4j
-@SpringBootApplication
 @RestController
-public class SpringbootElasticsearchApplication {
-	
-	private static Logger log = Logger.getLogger(SpringbootElasticsearchApplication.class);
-
-    public static void main(String[] args) {
-        SpringApplication.run(SpringbootElasticsearchApplication.class, args);
-    }
+public class ESBookController {
 
     @Autowired
     private TransportClient client;
@@ -145,12 +137,12 @@ public class SpringbootElasticsearchApplication {
         }
         boolBuilder.filter(rangeQuery);
         SearchRequestBuilder builder = this.client.prepareSearch("book")
-                    .setTypes("novel")
+                .setTypes("novel")
                 //Type 什么意思不懂
-                    .setSearchType(SearchType.QUERY_THEN_FETCH)
-                    .setQuery(boolBuilder)
-                    .setFrom(0)
-                    .setSize(10);
+                .setSearchType(SearchType.QUERY_THEN_FETCH)
+                .setQuery(boolBuilder)
+                .setFrom(0)
+                .setSize(10);
         log.info(String.valueOf(builder));
         SearchResponse response = builder.get();
 
@@ -159,5 +151,6 @@ public class SpringbootElasticsearchApplication {
         return new ResponseEntity(result, HttpStatus.OK);
 
     }
+
 
 }

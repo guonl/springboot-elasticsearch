@@ -1,4 +1,4 @@
-package com.gxgeek.springboot.elasticsearch.form;
+package com.guonl.elasticsearch.form;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
